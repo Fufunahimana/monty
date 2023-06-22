@@ -1,25 +1,26 @@
 #include "monty.h"
 /**
- * rotl - Function that rotates to the left
- * @s: monty stack
- * @ln: line number
+  *f_rotl- rotates the stack to the top
+  *@head: stack head
+  *@counter: line_number
+  *Return: no return
  */
-void rotl(stack_t **s, unsigned int ln)
+void f_rotl(stack_t **head,  __attribute__((unused)) unsigned int counter)
 {
-	stack_t *tmp;
-	int firstVal;
+	stack_t *tmp = *head, *aux;
 
-	UNUSED(ln);
-	tmp = *s;
-	if (tmp)
-		firstVal = tmp->n;
-	while (tmp != NULL)
+	if (*head == NULL || (*head)->next == NULL)
 	{
-		if (tmp->next)
-			tmp->n = tmp->next->n;
-		else
-			tmp->n = firstVal;
+		return;
+	}
+	aux = (*head)->next;
+	aux->prev = NULL;
+	while (tmp->next != NULL)
+	{
 		tmp = tmp->next;
 	}
+	tmp->next = *head;
+	(*head)->next = NULL;
+	(*head)->prev = tmp;
+	(*head) = aux;
 }
-

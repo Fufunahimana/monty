@@ -1,28 +1,26 @@
 #include "monty.h"
 /**
- * rotr - Function that rotates to the right
- * @s: monty stack
- * @ln: line number
+  *f_rotr- rotates the stack to the bottom
+  *@head: stack head
+  *@counter: line_number
+  *Return: no return
  */
-void rotr(stack_t **s, unsigned int ln)
+void f_rotr(stack_t **head, __attribute__((unused)) unsigned int counter)
 {
-	stack_t *tmp;
-	int lastVal;
+	stack_t *copy;
 
-	UNUSED(ln);
-	if ((*s) != NULL)
+	copy = *head;
+	if (*head == NULL || (*head)->next == NULL)
 	{
-		tmp = *s;
-		while (tmp->next != NULL)
-		{
-			tmp = tmp->next;
-		}
-		lastVal = tmp->n;
-		while (tmp->prev != NULL)
-		{
-			tmp->n = tmp->prev->n;
-			tmp = tmp->prev;
-		}
-		tmp->n = lastVal;
+		return;
 	}
+	while (copy->next)
+	{
+		copy = copy->next;
+	}
+	copy->next = *head;
+	copy->prev->next = NULL;
+	copy->prev = NULL;
+	(*head)->prev = copy;
+	(*head) = copy;
 }
